@@ -1,5 +1,5 @@
 name: github-actions-demo-01
-run-name: ${{ github.actor }} running your first Github Actions
+run-name: ${{ github.actor }} Running your first Github Actions 🔎
 on: [push]
 jobs:
   checks-bats-version:
