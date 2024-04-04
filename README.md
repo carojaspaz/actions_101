@@ -38,3 +38,8 @@ An action is a custom application for the GitHub Actions platform that performs 
 ### Runners
 A runner is a server that runs your workflows when they're triggered. Each runner can run a single job at a time. GitHub provides Ubuntu Linux, Microsoft Windows, and macOS runners to run your workflows; each workflow run executes in a fresh, newly-provisioned virtual machine. GitHub also offers larger runners, which are available in larger configurations.
 
+### Variables
+Variables provide a way to store and reuse non-sensitive configuration information. You can store any configuration data such as compiler flags, usernames, or server names as variables. Variables are interpolated on the runner machine that runs your workflow, also we can find a environment variables .
+List of environment variables: https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
+
+

@@ -1,0 +1,16 @@
+name: github-actions-demo-03
+run-name: ${{ github.actor }} Testing Environment variables 🚀
+on: workflow_dispatch
+env:
+  USER_NAME: KARLA ROJAS
+jobs:
+  Using-Variables:
+    runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
+    steps:
+      - name: "Say Hello"
+        run: echo "$Greeting $USER_NAME wellcome to $Repo_Name !"
+        env:
+          Repo_Name: ${{ github.repository }}
+      - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
