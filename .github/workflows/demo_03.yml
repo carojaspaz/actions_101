@@ -20,9 +20,10 @@ jobs:
     environment: ${{ vars.ENV_DEMO }}
     env:
       Greeting: Hello
+      ENV_USER_NAME: ${{ vars.USER_NAME}}
     steps:
       - name: "Say Hello"
-        run: echo "$Greeting $USER_NAME welcome to $Repo_Name !"
+        run: echo "$Greeting $ENV_USER_NAME welcome to $Repo_Name !"
         env:
           Repo_Name: ${{ github.repository }}
       - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
