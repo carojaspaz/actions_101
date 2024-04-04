@@ -13,4 +13,4 @@ jobs:
           node-version: "20"
       - run: npm install -g bats
       - run: bats --version
-      - run: echo "### IT WORKS! :rocket:"
+      - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
