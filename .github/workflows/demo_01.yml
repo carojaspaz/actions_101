@@ -10,8 +10,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - run: npm install -g bats
       - run: bats --version
-      - run: |
-          echo "### IT WORKS! :rocket:"
+      - run: echo "### IT WORKS! :rocket:"
