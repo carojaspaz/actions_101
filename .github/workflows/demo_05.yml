@@ -76,6 +76,7 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.person_list }}
         run: |
+          echo $person_info_list
           for p in $person_info_list 
           do
             name = $(echo "$p" | jq -r '.name')
