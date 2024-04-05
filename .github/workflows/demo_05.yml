@@ -24,7 +24,7 @@ jobs:
             echo 'email_list<<EOF'
             yq e -j '.emails[]' emailsMap.yml | jq -c '.'
             echo EOF
-          } >> $GITHUB_OUTPUTS
+          } >> $GITHUB_OUTPUT
 
   Send-Emails-Using-Matrix:
     needs: [Get-Emails-From-Yaml]
