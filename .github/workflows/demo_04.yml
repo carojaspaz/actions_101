@@ -34,5 +34,5 @@ jobs:
 
       - name: Send Mail using Script
         run: |
-          python ./scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD }} --from_address carojaspaz@gmail.com --to_addresses carlosandres.rojas@globant.com --body "This is a test email from GitHub Actions." --attachment_path attach.txt
+          python ./scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address carojaspaz@gmail.com --to_addresses carlosandres.rojas@globant.com --body "This is a test email from GitHub Actions." --attachment_path attach.txt
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
