@@ -22,8 +22,6 @@ def send_email(username, password, subject, body, to, from_address, attachment_p
     msg.attach(part)
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.ehlo()
-    server.starttls()
     server.login(username, password)
     text = msg.as_string()
     server.sendmail(from_address, to.split(','), text)
