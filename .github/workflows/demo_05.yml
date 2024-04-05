@@ -28,13 +28,12 @@ jobs:
 
   Send-Emails-Using-Matrix:
     needs: [Get-Emails-From-Json]
-    strategy:
-      matrix:
-        person_info_list: ${{ fromJson(needs.Get-Emails-From-Json.outputs.people) }}
+    env:
+      person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
         run: |
-          echo "Email sent to ${{ matrix.person_info_list }}"
+          echo "List $person_info_list"
       - name: Sumary
         run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
