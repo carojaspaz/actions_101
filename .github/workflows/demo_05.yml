@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       people: ${{ steps.get_emails.outputs.people }}
-      person_list: ${{ steps.get_emails_list.outputs.person_list }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,7 +15,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-          jq --version
 
       - name: Get Emails
         id: get_emails
@@ -24,15 +22,6 @@ jobs:
           {
             echo 'people<<EOF'
             jq -c '.' emailsMap.json
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Get Emails List
-        id: get_emails_list
-        run: |
-          {
-            echo 'person_list<<EOF'
-            jq -c '.[]' emailsMap.json
             echo EOF
           } >> "$GITHUB_OUTPUT"
 
@@ -58,28 +47,5 @@ jobs:
           secure: true
           ignore_cert: true
 
-  Send-Emails-Using-For:
-    needs: [Get-Emails-From-Json]
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - name: Send Mail using Script
-        env:
-          person_info_list: ${{ needs.Get-Emails-From-Json.outputs.person_list }}
-        run: |
-          for p in $person_info_list 
-          do
-            name = $(echo "$p" | jq -r '.name')
-            body = "Hi $name This is a test email from GitHub Actions."
-            mail = $(echo "$p" | jq -r '.email')
-            python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses "$email" --body "$body" --attachment_path attach_file.txt
-          done
-          echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
+      - name: Summary
+        run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
