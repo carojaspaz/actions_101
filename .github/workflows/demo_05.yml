@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} Additional features 🎉
 on: workflow_dispatch
 
 jobs:
-  Get-Emails-From-Yaml:
+  Get-Emails-From-Json:
     runs-on: ubuntu-latest
     outputs:
       email_list: ${{ steps.get_emails.outputs.email_list }}
@@ -26,10 +26,10 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
   Send-Emails-Using-Matrix:
-    needs: [Get-Emails-From-Yaml]
+    needs: [Get-Emails-From-Json]
     strategy:
       matrix:
-        emails: ${{ fromJson(needs.Get-Emails-From-Yaml.outputs.email_list) }}
+        person: ${{ needs.Get-Emails-From-Json.outputs.email_list }}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
@@ -40,8 +40,8 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "GitHub Actions Demo 04 - App"
-          html_body: "Hi ${{ matrix.emails.name }} This is a test email from GitHub Actions."
-          to: ${{ matrix.emails.email }}
+          html_body: "Hi ${{ matrix.person.name }} This is a test email from GitHub Actions."
+          to: ${{ matrix.person.email }}
           from: "Demo App"
           attachments: ./attach_file.txt
           secure: true
