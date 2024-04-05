@@ -2,8 +2,7 @@ name: github-actions-demo-03
 run-name: ${{ github.actor }} Testing Environment variables 🍏
 on: workflow_dispatch
 env:
-  USER_NAME: KARLA ROJAS
-
+  USER_NAME_LOCAL: KARLA ROJAS
 jobs:
   Using-Variables:
     runs-on: ubuntu-latest
@@ -11,19 +10,11 @@ jobs:
       Greeting: Hello
     steps:
       - name: "Say Hello"
-        run: echo "$Greeting $USER_NAME welcome to $Repo_Name !"
+        run: echo "$Greeting $USER_NAME_LOCAL welcome to $Repo_Name !"
         env:
           Repo_Name: ${{ github.repository }}
-      - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
-  Using-Env-Variables:
-    runs-on: ubuntu-latest
-    environment: ${{ vars.ENV_DEMO }}
-    env:
-      Greeting: Hello
-      ENV_USER_NAME: ${{ vars.USER_NAME}}
-    steps:
-      - name: "Say Hello"
-        run: echo "$Greeting $ENV_USER_NAME welcome to $Repo_Name !"
+      - name: "Say Hello Using Environmet Variables"
+        run: echo "$Greeting ${{ env.USER_NAME }} welcome to $Repo_Name !"
         env:
           Repo_Name: ${{ github.repository }}
       - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY

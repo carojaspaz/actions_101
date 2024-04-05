@@ -1,4 +1,4 @@
-# actions_101
+# Actions on GithUB
 How works the actions on Github, a first sight
 
 This repo has as main goal to show how works the actions on Github, a first sight. It's not intended to be used in production, but to be used as a learning tool.
