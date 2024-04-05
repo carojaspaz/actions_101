@@ -1,0 +1,35 @@
+name: github-actions-demo-04
+run-name: ${{ github.actor }} Using Marketplace and Scripts 🖥️
+on: workflow_dispatch
+
+jobs:
+  Using-Marketplace-App:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "GitHub Actions Demo 04 - App"
+          html_body: "This is a test email from GitHub Actions."
+          to: carlosandres.rojas@globant.com
+          from: Demo
+          secure: true
+          ignore_cert: true
+
+  Using-Script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Send Mail using Script
+        run: |
+          body= "This is a test email from GitHub Actions."
+          python .scripts/send_mail.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD }} --from_address carojaspaz@gmail.com --to_addresses carlosandres.rojas@globant.com --body "$body" --attachment_path attach.txt
+          echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
