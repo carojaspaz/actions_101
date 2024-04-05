@@ -30,7 +30,7 @@ jobs:
     needs: [Get-Emails-From-Json]
     strategy:
       matrix:
-        person_info_list: ${{ format(needs.Get-Emails-From-Json.outputs.people) }}
+        person_info_list: ${{ fromJson(needs.Get-Emails-From-Json.outputs.people) }}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
