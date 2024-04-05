@@ -6,7 +6,7 @@ jobs:
   Get-Emails-From-Json:
     runs-on: ubuntu-latest
     outputs:
-      email_list: ${{ steps.get_emails.outputs.email_list }}
+      people: ${{ steps.get_emails.outputs.people }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
         id: get_emails
         run: |
           {
-            echo 'image_info_list<<EOF'
+            echo 'people<<EOF'
             jq -c '.[]' emailsMap.json
             echo EOF
           } >> "$GITHUB_OUTPUT"
@@ -29,7 +29,7 @@ jobs:
     needs: [Get-Emails-From-Json]
     strategy:
       matrix:
-        person: ${{ needs.Get-Emails-From-Json.outputs.email_list }}
+        person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
@@ -40,8 +40,8 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "GitHub Actions Demo 04 - App"
-          html_body: "Hi ${{ matrix.person.name }} This is a test email from GitHub Actions."
-          to: ${{ matrix.person.email }}
+          html_body: "Hi ${{ matrix.person_info_list.name }} This is a test email from GitHub Actions."
+          to: ${{ matrix.person_info_list.email }}
           from: "Demo App"
           attachments: ./attach_file.txt
           secure: true
