@@ -42,11 +42,5 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
         run: |
-          for p in $person_info_list 
-          do
-            name = $(echo "$p" | jq -r '.name')
-            body = "Hi $name This is a test email from GitHub Actions."
-            mail = $(echo "$p" | jq -r '.email')
-            python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses "$email" --body "$body" --attachment_path attach_file.txt
-          done
+          echo $person_info_list
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
