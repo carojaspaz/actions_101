@@ -76,7 +76,6 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.person_list }}
         run: |
-          echo $person_info_list
           for p in $person_info_list 
           do
             name = $(echo "$p" | jq -r '.name')
@@ -84,5 +83,5 @@ jobs:
             mail = $(echo "$p" | jq -r '.email')
             python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses "$email" --body "$body" --attachment_path attach_file.txt
           done
-          echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "### $person_info_list IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
         shell: bash
