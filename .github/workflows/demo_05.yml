@@ -51,7 +51,7 @@ jobs:
   Send-Emails-Using-For:
     needs: [Get-Emails-From-Json]
     env:
-      person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
+      person_info_list: ${{ fromJson(needs.Get-Emails-From-Json.outputs.people) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
