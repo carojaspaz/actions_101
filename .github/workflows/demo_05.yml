@@ -1,0 +1,50 @@
+name: github-actions-demo-05
+run-name: ${{ github.actor }} Additional features 🎉
+on: workflow_dispatch
+
+jobs:
+  Get-Emails-From-Yaml:
+    runs-on: ubuntu-latest
+    outputs:
+      email_list: ${{ steps.get_emails.outputs.email_list }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install yq -y
+
+      - name: Get Emails
+        id: get_emails
+        run: |
+          {
+            echo 'email_list:'
+            yq e -j '.emails[]' emailsMap.yml | jq -c '.'
+            echo EOF
+          } >> $GITHUB_OUTPUTS
+
+  Send-Emails-Using-Matrix:
+    needs: [Get-Emails-From-Yaml]
+    strategy:
+      matrix:
+        emails: ${{needs.Get-Emails-From-Yaml.outputs.email_list}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "GitHub Actions Demo 04 - App"
+          html_body: "Hi ${{ matrix.emails.name }} This is a test email from GitHub Actions."
+          to: ${{ matrix.emails.email }}
+          from: "Demo App"
+          attachments: ./attach_file.txt
+          secure: true
+          ignore_cert: true
+      - name: Sumary
+        run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
