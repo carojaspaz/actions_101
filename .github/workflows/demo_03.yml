@@ -20,5 +20,7 @@ jobs:
     steps:
       - name: "Say Hello Using Environmet Variables"
         run: |
-          echo "Hola $USER_NAME welcome!"
+          echo "Hola $USER_NAME_CONFIG welcome!"
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
+        env:
+          USER_NAME_CONFIG: ${{ vars.USER_NAME }}
