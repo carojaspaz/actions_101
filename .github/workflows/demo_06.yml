@@ -21,7 +21,7 @@ jobs:
         run: |
           {
             echo 'people<<EOF'
-            jq -c '.' emailsMap.json
+            jq -c '.[]' emailsMap.json
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
@@ -42,7 +42,8 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
         run: |
-          for person_info in $person_info_list; do
+          for person_info in $person_info_list" 
+          do
             echo "Sending email to $person_info"
           done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
