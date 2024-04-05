@@ -74,7 +74,7 @@ jobs:
 
       - name: Send Mail using Script
         env:
-          person_info_list: ${{ needs.Get-Emails-From-Json.outputs.person_list }}
+          person_info_list: ${{ fromJson(needs.Get-Emails-From-Json.outputs.people) }}
         run: |
           for p in $person_info_list 
           do
