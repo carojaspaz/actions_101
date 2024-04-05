@@ -21,7 +21,7 @@ jobs:
         id: get_emails
         run: |
           {
-            echo 'email_list:'
+            echo 'email_list<<EOF'
             yq e -j '.emails[]' emailsMap.yml | jq -c '.'
             echo EOF
           } >> $GITHUB_OUTPUTS
