@@ -13,8 +13,10 @@ jobs:
         run: echo "$Greeting $USER_NAME_LOCAL welcome to $Repo_Name !"
         env:
           Repo_Name: ${{ github.repository }}
+
+  Using-Config-Variables:
+    runs-on: ubuntu-latest
+    steps:
       - name: "Say Hello Using Environmet Variables"
-        run: echo "$Greeting ${{ env.USER_NAME }} welcome to $Repo_Name !"
-        env:
-          Repo_Name: ${{ github.repository }}
+        run: echo "Hola ${{ vars.USER_NAME }} welcome!"
       - run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
