@@ -42,5 +42,7 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
         run: |
-          echo $person_info_list
+          for person_info in $person_info_list; do
+            echo "Sending email to $person_info"
+          done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
