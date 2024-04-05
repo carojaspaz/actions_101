@@ -30,7 +30,7 @@ jobs:
     needs: [Get-Emails-From-Yaml]
     strategy:
       matrix:
-        emails: ${{needs.Get-Emails-From-Yaml.outputs.email_list}}
+        emails: ${{fromJson(needs.Get-Emails-From-Yaml.outputs.email_list)}}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
