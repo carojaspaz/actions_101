@@ -35,6 +35,7 @@ jobs:
     steps:
       - name: Send Mail
         run: |
-          echo "email. $matrix.person_info_list.email"
+          echo "Name ${{ matrix.person_info_list.email }}"
+          echo "Email ${{ matrix.person_info_list.email }}"
       - name: Sumary
         run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
