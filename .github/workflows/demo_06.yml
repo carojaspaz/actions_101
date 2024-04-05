@@ -21,7 +21,7 @@ jobs:
         run: |
           {
             echo 'people<<EOF'
-            jq -c '.[]' emailsMap.json
+            jq -c '.' emailsMap.json
             echo EOF
           } >> "$GITHUB_OUTPUT"
 
