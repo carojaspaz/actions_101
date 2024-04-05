@@ -25,7 +25,6 @@ jobs:
             jq -c '.' emailsMap.json
             echo EOF
           } >> "$GITHUB_OUTPUT"
-          echo $people
 
       - name: Get Emails List
         id: get_emails_list
@@ -35,7 +34,6 @@ jobs:
             jq -c '.[]' emailsMap.json
             echo EOF
           } >> "$GITHUB_OUTPUT"
-          echo $person_list
 
   Send-Emails-Using-Matrix:
     needs: [Get-Emails-From-Json]
