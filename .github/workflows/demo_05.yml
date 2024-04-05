@@ -22,7 +22,7 @@ jobs:
           {
             echo 'people<<EOF'
             jq -c '.' emailsMap.json
-            echo EOF
+            echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
   Send-Emails-Using-Matrix:
