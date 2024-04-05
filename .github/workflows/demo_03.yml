@@ -6,8 +6,16 @@ jobs:
   Using-Variables:
     runs-on: ubuntu-latest
     steps:
-      - name: "Variable tyipes"
+      - name: "Variable types"
         run: |
-          echo "Environment Variable: ${{ vars.ENV_VARIABLE_1 }}"
-          echo "Repo Variable ${{ vars.REPO_VARIABLE_1 }}"
+          echo "Repo Variable: ${{ vars.REPO_VARIABLE_1 }}"
+
+  Using-Environments:
+    runs-on: ubuntu-latest
+    environment:
+      name: DEV
+    steps:
+      - name: "Environment variable"
+        run: |
+          echo "Environment Variable: ${{ vars.ENV_VARIABLE_1 }}"           
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
