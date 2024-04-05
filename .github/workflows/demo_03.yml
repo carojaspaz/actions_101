@@ -10,12 +10,21 @@ jobs:
         run: |
           echo "Repo Variable: ${{ vars.REPO_VARIABLE_1 }}"
 
-  Using-Environments:
+  Using-Environments-Dev:
     runs-on: ubuntu-latest
     environment:
       name: DEV
     steps:
       - name: "Environment variable"
         run: |
-          echo "Environment Variable: ${{ vars.ENV_VARIABLE_1 }}"           
+          echo "Environment Variable: ${{ vars.ENV_VARIABLE_1 }}"
+
+  Using-Environments-Test:
+    runs-on: ubuntu-latest
+    environment:
+      name: PROD
+    steps:
+      - name: "Environment variable"
+        run: |
+          echo "Environment Variable: ${{ vars.ENV_VARIABLE_1 }}"
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
