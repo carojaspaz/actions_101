@@ -21,7 +21,7 @@ def send_email(username, password, subject, body, to, from_address, attachment_p
                     f"attachment; filename= {attachment_path}")
     msg.attach(part)
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP('smtp.gmail.com', 465)
     server.ehlo()
     server.starttls()
     server.login(username, password)
