@@ -34,8 +34,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
-        run: |
-          echo "Name ${{ matrix.person_info_list.email }}"
-          echo "Email ${{ matrix.person_info_list.email }}"
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "GitHub Actions Demo 04 - App"
+          html_body: "Hi ${{ matrix.person_info_list.name }} This is a test email from GitHub Actions."
+          to: ${{ matrix.person_info_list.email }}
+          from: "Demo App"
+          attachments: ./attach_file.txt
+          secure: true
+          ignore_cert: true
       - name: Sumary
         run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
