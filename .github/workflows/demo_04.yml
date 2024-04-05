@@ -17,7 +17,7 @@ jobs:
           html_body: "This is a test email from GitHub Actions."
           to: carlosandres.rojas@globant.com
           from: "Demo App"
-          attachments: ./attach_file.txt
+          attachments: attach_file.txt
           secure: true
           ignore_cert: true
 
