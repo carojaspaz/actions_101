@@ -44,8 +44,27 @@ jobs:
           html_body: "Hi ${{ matrix.person_info_list.name }} This is a test email from GitHub Actions."
           to: ${{ matrix.person_info_list.email }}
           from: "Demo App"
-          attachments: ./attach_file.txt
+          attachments: attach_file.txt
           secure: true
           ignore_cert: true
-      - name: Sumary
-        run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
+
+  Send-Emails-Using-For:
+    needs: [Get-Emails-From-Json]
+    env:
+      person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Send Mail using Script
+        run: |
+          for p in $person_info_list; do
+            python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses $p.email --body "Hi $p.name This is a test email from GitHub Actions." --attachment_path attach_file.txt
+          done
+          echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
