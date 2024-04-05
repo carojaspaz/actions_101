@@ -30,22 +30,12 @@ jobs:
     needs: [Get-Emails-From-Json]
     strategy:
       matrix:
-        person_info_list: ${{ fromJson(needs.Get-Emails-From-Json.outputs.people) }}
+        person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
     runs-on: ubuntu-latest
     steps:
       - name: Send Mail
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "GitHub Actions Demo 04 - App"
-          html_body: "Hi ${{ matrix.person_info_list.name }} This is a test email from GitHub Actions."
-          to: ${{ matrix.person_info_list.email }}
-          from: "Demo App"
-          attachments: ./attach_file.txt
-          secure: true
-          ignore_cert: true
+        run: |
+          echo "Sending email to ${{ matrix.person_info_list.name }}"
+          echo "Email sent to ${{ matrix.person_info_list.email }}"
       - name: Sumary
         run: echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
