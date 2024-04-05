@@ -76,8 +76,10 @@ jobs:
       - name: Send Mail using Script
         run: |
           for p in $person_info_list; do
-            name = $(echo "$p" | jq -r ".name")
-            mail = $(echo "$p" | jq -r ".email")
+            name = $(echo "$p" | jq -r '.name')
+            mail = $(echo "$p" | jq -r '.email')
+            echo $name
+            echo $mail
             python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses $email --body "Hi $name This is a test email from GitHub Actions." --attachment_path attach_file.txt
           done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
