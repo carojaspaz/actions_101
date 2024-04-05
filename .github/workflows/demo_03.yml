@@ -14,13 +14,10 @@ jobs:
         env:
           Repo_Name: ${{ github.repository }}
 
-  Using-Config-Variables:
+  Using-Repo-Variables:
     runs-on: ubuntu-latest
-    environment: ${{ vars.ENV_DEMO }}
     steps:
-      - name: "Say Hello Using Environmet Variables"
+      - name: "Say Hello Using Repo Variables"
         run: |
-          echo "Hola $USER_NAME_CONFIG welcome!"
+          echo "Hola $USER_NAME_REPO welcome!"
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
-        env:
-          USER_NAME_CONFIG: ${{ vars.USER_NAME }}
