@@ -44,6 +44,6 @@ jobs:
         run: |
           for person_info in $person_info_list" 
           do
-            echo "Sending email to $person_info"
+            echo "Sending email to $(echo $person_info" | jq -r '.name')"
           done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
