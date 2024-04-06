@@ -42,7 +42,7 @@ jobs:
         env:
           person_info_list: ${{ needs.Get-Emails-From-Json.outputs.people }}
         run: |
-          for person_info in $person_info_list" 
+          for person_info in $person_info_list
           do
             echo "$person_info"
           done
