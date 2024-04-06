@@ -46,7 +46,7 @@ jobs:
           do
             name=$(echo "$person_info" | jq -r '.name')
             email=$(echo "$person_info" | jq -r '.email')
-            body = "Hi $name This is a test email from GitHub Actions."
+            body=$(echo "Hi $name This is a test email from GitHub Actions.")
             python scripts/send_emails.py --username ${{ secrets.MAIL_USERNAME }} --password ${{ secrets.MAIL_PASSWORD_1 }} --from_address "Demo Script" --to_addresses "$email" --body "$body" --attachment_path attach_file.txt
           done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
