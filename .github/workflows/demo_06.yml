@@ -44,6 +44,6 @@ jobs:
         run: |
           for person_info in $person_info_list
           do
-            echo "$person_info"
+            echo "$person_info" | jq -r '.name'
           done
           echo "### IT WORKS! :rocket:" >> $GITHUB_STEP_SUMMARY
