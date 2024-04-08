@@ -1,6 +1,6 @@
 name: github-actions-demo-01-on-release
 
-run-name: ${{ github.actor }} Running your first Github Actions 🔎
+run-name: ${{ github.actor }} Running on release 🔎
 on:
   release:
     types: [created]

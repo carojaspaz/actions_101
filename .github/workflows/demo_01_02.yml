@@ -1,5 +1,5 @@
-name: github-actions-demo-01
-run-name: ${{ github.actor }} Running your first Github Actions 🔎
+name: github-actions-demo-01-on-push-branch
+run-name: ${{ github.actor }} Running on push branch 🔎
 on:
   push:
     branches:
